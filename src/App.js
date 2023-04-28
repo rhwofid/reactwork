@@ -1,24 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+// import Map3 from './Map3';
+// import Map4 from './Map4';
+// import Mapxy from './Mapxy';
+import Maptest from './Maptest';
+import MapWrite from './MapWrite';
+// import Mapxy from './Mapxy';
+// import MapMarker from './MapMarker';
+// import Mapsearch from './Mapsearch';
+// import Mapss from './Mapss';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+ <>
+ {/* <Map3/> */}
+ <MapWrite/>
+ {/* <MapMarker/> */}
+ {/* <Mapsearch/> */}
+ {/* <Mapxy/> */}
+ {/* <Mapss/> */}
+ </>
   );
 }
 
