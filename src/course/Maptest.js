@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 function Maptest(props) {
 
-  const { lat, setLat, lng, setLang, placeName, setPlaceName } = props;
+  const { lat, setLat, lng, setLng, placeName, setPlaceName, data, setDate } = props;
 
   //컴포넌트 마운트 됐을 때 실행하는 함수
   useEffect(() => {
@@ -124,7 +124,10 @@ function Maptest(props) {
     })
     .catch((error)=>{
       console.log(error);
-    })
+    });
+    // {formatdate(props.data)}
+
+  
 
     //인풋창 존나 안나와서 새로 만들어 줌.
     const newInput = document.body.appendChild(document.createElement("input"))

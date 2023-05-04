@@ -3,13 +3,47 @@ import Maptest from "./Maptest";
 import { Add } from "@mui/icons-material";
 import { Button, Input } from "@mui/material";
 import CourseWrite from "./CourseWrite";
-
-function MapWrite(props) {
-    const [lat, setLat] = useState();
-    const [lng, setLng] = useState();
-    const [placeName, setPlaceName] = useState("");
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
+const MapWrite = () => {
+
+    const navigate = useNavigate();
+    const [title, setTitle] = useState('');
+    const [contents, setContents] = useState('');
+
+    const handlerChangeTitle = e => setTitle(e.target.value);
+    const handlerChangeContents = e => setContents(e.target.value);
+
+    const MapList = () => {
+        const navigate = useNavigate();
+    }
+
+    const handlerSubmit = e => {
+        e.preventDefault();
+       
+
+        axios.post(`http://localhost:8080/api/course/write`, {title, contents,})
+        .then(response => {
+            console.log(response);
+            if (response.data === 1 ) {
+                alert('${response.data.message} (게시판 번호: ${response.data.travelcourseIdx})');
+                // history.push('./course');
+                navigate('/');
+            }else{
+                alert(response.data.message);
+                return;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            alert('${error.response.data.message} (${error.message})');
+            return;
+        });
+    };
+    
 
     //지도 불러옴, 장소 검색 후 출력된 장소를 '장소 저장'버튼 누름으로써 장소이름을 일시적으로 코스 소개로 넘겨줌 
     // Maptest컴포넌트에서 lat, lng, placeName, date, id(1) 상태변수를 장소저장 버튼의 Click핸들러를 가지고 axios를 서버로 전달.
@@ -30,18 +64,15 @@ function MapWrite(props) {
 
     return (
         <>
-
+            <div className="container">
             <h1>여행코스등록</h1>
-            <Maptest
-                lat={lat}
-                setLat={setLat}
-                lng={lng}
-                setLng={setLng}
-                placeName={placeName}
-                setPlaceName={setPlaceName}
-            />
+            <from id='frm' name='frm' onSubmit={handlerSubmit}/>
+            
+            <Maptest/>
+            </div>
             <h3>제목</h3>
-            <Input placeholder="Write title!" />
+            <Input placeholder="Write title" id='title' name='title' value={title}
+            onChange={handlerChangeTitle}/>
             <hr></hr>
             <CourseWrite />
 
@@ -55,12 +86,18 @@ function MapWrite(props) {
                 파일등록
             </Button>
             <hr></hr>
-            <Button variant="contained">
+            <td colSpan='5'><textarea id='contents' name='contents' value={contents}
+            onChange={handlerChangeContents}></textarea></td>
+            <hr></hr>
+            <Button type='submit' id='submit' variant="contained">
                 등록
             </Button>
-            <Button variant="contained">
+            <Button variant="contained" onClick={navigate}>
                 목록
             </Button>
+            <input type='submit' id='submit' value='목록' className="btn" onClick={MapList}/>
+            <Link to="/course" id='submit' className="btn">목록</Link>
+                    
         </>
     );
 }
